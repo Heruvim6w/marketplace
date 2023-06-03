@@ -1,0 +1,89 @@
+{
+    "brand": "H&M",
+    "name": "Printed swim shorts",
+    "description": "Swim shorts with a print motif. Covered elastication and a drawstring at the waist and soft mesh inner shorts.",
+    "gender": "boy",
+    "vendor": "hm",
+    "date": "2022-12-04T23:20:45+00:00",
+    "id": "1027477010",
+    "sku": "1027477010",
+    "categories": [
+        [
+            "Kids",
+            "Clothing",
+            "Swimwear"
+        ]
+    ],
+    "offers": [
+        {
+            "id": "1027477010008",
+            "sku": "1027477010008",
+            "price": 8999,
+            "oldPrice": 27999,
+            "available": true,
+            "params": [
+                {
+                    "type": "unique",
+                    "name": "color",
+                    "title": "Color",
+                    "value": "Black/Ninjago"
+                },
+                {
+                    "type": "unique",
+                    "name": "size",
+                    "title": "Size",
+                    "value": "98/104 (2-4Y)"
+                },
+                {
+                    "name": "materials",
+                    "title": "Materials",
+                    "type": "extra",
+                    "value": "Shell: 100% Polyester\n\nLining: 100% Polyester"
+                }
+            ],
+            "images": [
+                {
+                    "type": "default",
+                    "url": "https://390928.selcdn.ru/shopokot/hm/102/1027477010/a4f89d906127fc231b1cae1bd32e382b.jpg"
+                },
+                {
+                    "type": "default",
+                    "url": "https://390928.selcdn.ru/shopokot/hm/102/1027477010/7414b4848742617319463cba731be292.jpg"
+                }
+            ],
+
+        }
+    ],
+    "params": [
+        {
+            "name": "brand",
+            "title": "Brand",
+            "type": "extra",
+            "value": "H&M"
+        },
+        {
+            "name": "year-of-production",
+            "title": "Year Of Production",
+            "type": "extra",
+            "value": "2022"
+        },
+        {
+            "name": "type",
+            "title": "Product Type",
+            "type": "extra",
+            "value": "Swimwear bottom"
+        },
+        {
+            "name": "materials-description",
+            "title": "Materials Description",
+            "type": "extra",
+            "value": "Polyester is an artificial fibre made from fossil resources (crudeoil)."
+        },
+        {
+            "name": "gender",
+            "title": "Gender",
+            "type": "extra",
+            "value": "boy"
+        }
+    ]
+}
