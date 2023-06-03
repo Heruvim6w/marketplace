@@ -23,7 +23,7 @@ class SystemProposalsService
         foreach ($proposals as $proposal) {
             $entity = new Proposal();
             $entity->goods_id = $baseEntity->id;
-            // TODO
+            // ToDo
             $entity->external_id = -1;
             $entity->sku = $proposal->sku;
             $entity->price = $proposal->price;
