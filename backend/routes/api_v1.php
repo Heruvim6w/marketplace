@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\V1\System\OrderController;
+use App\Http\Controllers\Api\V1\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\System\GoodsController;
-use \App\Http\Controllers\Api\V1\Market\GoodsController as MarketGoodsController;
+use App\Http\Controllers\Api\V1\Market\GoodsController as MarketGoodsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,19 @@ use \App\Http\Controllers\Api\V1\Market\GoodsController as MarketGoodsController
 |
 */
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+});
+
 Route::prefix('system')
     ->name('system.')
+    ->middleware('jwt.auth')
     ->group(function () {
         Route::prefix('goods')
             ->name('goods.')
@@ -37,6 +49,7 @@ Route::prefix('system')
 
 Route::prefix('market')
     ->name('market.')
+    ->middleware('jwt.auth')
     ->group(function () {
         Route::prefix('goods')
             ->name('goods.')
