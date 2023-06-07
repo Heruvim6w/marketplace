@@ -7,6 +7,7 @@ use Decimal\Decimal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $sku
  * @property Decimal $price
  * @property Decimal $old_price
+ * @property integer $quantity
+ * @property boolean $available
  */
 class Proposal extends Model
 {
@@ -29,5 +32,10 @@ class Proposal extends Model
         return $this
             ->belongsToMany(Property::class)
             ->withPivot('value');
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
     }
 }

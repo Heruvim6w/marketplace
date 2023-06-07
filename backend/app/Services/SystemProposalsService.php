@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\DTO\V1\ProposalDTO;
+use App\Models\Image;
 use App\Models\Proposal;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,12 +24,19 @@ class SystemProposalsService
         foreach ($proposals as $proposal) {
             $entity = new Proposal();
             $entity->goods_id = $baseEntity->id;
-            // ToDo
-            $entity->external_id = -1;
+            $entity->external_id = $proposal->id;
             $entity->sku = $proposal->sku;
             $entity->price = $proposal->price;
             $entity->old_price = $proposal->oldPrice;
+            $entity->quantity = $proposal->quantity;
             $entity->save();
+
+            foreach ($proposal->images as $imageItem) {
+                $image = new Image();
+                $image->type = $imageItem->type;
+                $image->url = $imageItem->url;
+                $entity->images()->save($image);
+            }
 
             $this->propertiesService->store($entity, $proposal->properties);
         }
@@ -36,9 +44,14 @@ class SystemProposalsService
 
     public function deleteByExternalIds(array $externalIds)
     {
-        return  Proposal::query()
+        $proposals = Proposal::query()
             ->whereIn('external_id', $externalIds)
-            ->delete();
+            ->get();
+
+        foreach ($proposals as $proposal) {
+            $proposal->available = false;
+            $proposal->save();
+        }
     }
 
     public function delete(Model $baseEntity): void

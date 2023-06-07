@@ -23,6 +23,7 @@
             "sku": "1027477010008",
             "price": 8999,
             "oldPrice": 27999,
+            "quantity": 2,
             "available": true,
             "params": [
                 {

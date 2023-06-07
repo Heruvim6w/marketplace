@@ -6,7 +6,10 @@ use App\Http\DTO\V1\ProposalDTO;
 
 final class SystemOffersConverter
 {
-    public function __construct(private readonly SystemPropertiesConverter $propertiesConverter)
+    public function __construct(
+        private readonly SystemPropertiesConverter $propertiesConverter,
+        private readonly SystemImagesConverter $imagesConverter
+    )
     {
     }
 
@@ -22,8 +25,10 @@ final class SystemOffersConverter
                 sku: $offer['sku'],
                 price: $offer['price'],
                 oldPrice: $offer['oldPrice'],
+                quantity: $offer['quantity'],
                 available: $offer['available'],
-                properties: $this->propertiesConverter->convertToDTO($offer['params'])
+                properties: $this->propertiesConverter->convertToDTO($offer['params']),
+                images: $this->imagesConverter->convertToDTO($offer['images'])
             ),
             $offers
         );

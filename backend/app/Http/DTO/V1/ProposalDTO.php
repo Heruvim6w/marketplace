@@ -9,9 +9,12 @@ final class ProposalDTO
         public readonly string $sku,
         public readonly string $price,
         public readonly string $oldPrice,
+        public readonly string $quantity,
         public readonly bool   $available,
-        /** @var \App\Http\DTO\V1\PropertyDTO[] $properties */
+        /** @var PropertyDTO[] $properties */
         public readonly array  $properties,
+        /** @var ImageDTO[] $images */
+        public readonly array $images,
     ) {
     }
 }

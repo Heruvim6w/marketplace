@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('sku');
             $table->decimal('price');
             $table->decimal('old_price');
+            $table->integer('quantity')->nullable();
+            $table->boolean('available')->default(true);
             $table->timestampsTz();
         });
 
@@ -28,6 +30,13 @@ return new class extends Migration
             $table->string('value');
             $table->timestampsTz();
         });
+
+        Schema::create('images', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('proposal_id')->index();
+            $table->string('type')->nullable();
+            $table->string('url');
+        });
     }
 
     /**
@@ -37,5 +46,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('proposals');
         Schema::dropIfExists('proposal_property');
+        Schema::dropIfExists('images');
     }
 };
