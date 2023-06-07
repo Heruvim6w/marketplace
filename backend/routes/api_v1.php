@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\System\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\System\GoodsController;
+use \App\Http\Controllers\Api\V1\Market\GoodsController as MarketGoodsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,15 @@ Route::prefix('system')
             ->name('orders.')
             ->group(function () {
                 Route::get('/{external_id}', [OrderController::class, 'getOrder'])->name('getOrder');
+            });
+    });
+
+Route::prefix('market')
+    ->name('market.')
+    ->group(function () {
+        Route::prefix('goods')
+            ->name('goods.')
+            ->group(function () {
+                Route::post('/sold', [MarketGoodsController::class, 'sold'])->name('sold');
             });
     });

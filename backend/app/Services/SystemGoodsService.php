@@ -28,6 +28,39 @@ class SystemGoodsService
     {
         $entity = new Goods();
         $entity->external_id = $goods->id;
+        return $this->extracted($goods, $entity);
+    }
+
+    public function update(GoodsDTO $goods): Goods
+    {
+        /** @var Goods $entity */
+        $entity = Goods::query()->where('external_id', $goods->id)->firstOrFail();
+        return $this->extracted($goods, $entity);
+    }
+
+    public function findByExternalId(int $externalId): Model|Builder
+    {
+        return Goods::query()
+            ->with(['categories', 'properties', 'proposals'])
+            ->where('external_id', $externalId)
+            ->firstOrFail();
+    }
+
+    public function removeFromSale(Model|Builder $entity): Builder|Model
+    {
+        $entity->status = 0;
+        $entity->save();
+
+        return $entity;
+    }
+
+    /**
+     * @param GoodsDTO $goods
+     * @param Goods $entity
+     * @return Goods
+     */
+    public function extracted(GoodsDTO $goods, Goods $entity): Goods
+    {
         $entity->name = $goods->name;
         $entity->brand = $goods->brand;
         $entity->sku = $goods->sku;
@@ -38,35 +71,6 @@ class SystemGoodsService
         $this->categoriesService->store($entity, $goods->categories);
         $this->proposalsService->store($entity, $goods->proposals);
         $this->propertiesService->store($entity, $goods->properties);
-
-        return $entity;
-    }
-
-    public function update(GoodsDTO $goods): Goods
-    {
-        /** @var Goods $entity */
-        $entity = Goods::query()->where('external_id', $goods->id)->firstOrFail();
-        $entity->name = $goods->name;
-        $entity->brand = $goods->brand;
-        $entity->sku = $goods->sku;
-        $entity->description = $goods->description;
-        $entity->status = $goods->proposals ? 1 : 0;
-        $entity->save();
-
-        return $entity;
-    }
-
-    public function findByExternalId(int $externalId): Model|Builder
-    {
-        return Goods::query()
-            ->where('external_id', $externalId)
-            ->firstOrFail();
-    }
-
-    public function removeFromSale(Model|Builder $entity): Builder|Model
-    {
-        $entity->status = 0;
-        $entity->save();
 
         return $entity;
     }

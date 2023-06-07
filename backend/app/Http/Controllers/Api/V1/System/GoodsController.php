@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\System;
 
+use App\Events\AddNewGoodsEvent;
+use App\Events\RemoveGoodsEvent;
+use App\Events\UpdateGoodsEvent;
 use App\Http\Controllers\Controller;
 use App\Http\ParamsConverter\V1\SystemGoodsConverter;
 use App\Services\SystemGoodsService;
@@ -30,6 +33,7 @@ class GoodsController extends Controller
             $goods = $goodsConverter->convertToDTO($request->all());
 
             $goodsService->store($goods);
+            event(new AddNewGoodsEvent($goods));
         } catch (\Exception $exception) {
             return new JsonResponse([
                 'result' => 'error',
@@ -53,6 +57,7 @@ class GoodsController extends Controller
             $goods = $goodsConverter->convertToDTO($request->all());
 
             $goodsService->update($goods);
+            event(new UpdateGoodsEvent($goods));
         } catch (\Exception $exception) {
             return new JsonResponse([
                 'result' => 'error',
@@ -78,6 +83,7 @@ class GoodsController extends Controller
             $goods = $goodsService->findByExternalId((int) $request->get('id'));
 
             $goodsService->removeFromSale($goods);
+            event(new RemoveGoodsEvent($goods));
         } catch (\Exception $exception) {
             return new JsonResponse([
                 'result' => 'error',

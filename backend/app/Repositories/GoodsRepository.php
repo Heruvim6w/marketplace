@@ -28,6 +28,7 @@ class GoodsRepository extends BaseRepository
             ->through($this->filters())
             ->thenReturn()
             ->select('*')
+            ->where('status', 1)
             ->distinct();
 
         return $goods->orderBy('id')->paginate();

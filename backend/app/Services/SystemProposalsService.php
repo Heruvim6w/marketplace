@@ -53,9 +53,4 @@ class SystemProposalsService
             $proposal->save();
         }
     }
-
-    public function delete(Model $baseEntity): void
-    {
-        $baseEntity->delete();
-    }
 }
