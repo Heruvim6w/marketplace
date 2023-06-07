@@ -4,11 +4,11 @@ namespace App\Providers;
 
 use App\Events\AddNewGoodsEvent;
 use App\Events\RemoveGoodsEvent;
-use App\Events\SoldGoodsEvent;
+use App\Events\MarketSoldGoodsEvent;
 use App\Events\UpdateGoodsEvent;
 use App\Listeners\AddNewGoodsListener;
 use App\Listeners\RemoveGoodsListener;
-use App\Listeners\SoldGoodsListener;
+use App\Listeners\MarketSoldGoodsListener;
 use App\Listeners\UpdateGoodsListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -35,8 +35,8 @@ class EventServiceProvider extends ServiceProvider
         RemoveGoodsEvent::class => [
             RemoveGoodsListener::class,
         ],
-        SoldGoodsEvent::class => [
-            SoldGoodsListener::class,
+        MarketSoldGoodsEvent::class => [
+            MarketSoldGoodsListener::class,
         ],
     ];
 

@@ -26,6 +26,7 @@ Route::prefix('system')
                 Route::post('/', [GoodsController::class, 'store'])->name('store');
                 Route::patch('/', [GoodsController::class, 'update'])->name('update');
                 Route::post('/removeFromSale', [GoodsController::class, 'removeFromSale'])->name('removeFromSale');
+                Route::post('/sold', [GoodsController::class, 'sold'])->name('sold');
             });
         Route::prefix('orders')
             ->name('orders.')

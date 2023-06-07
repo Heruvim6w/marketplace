@@ -20,6 +20,4 @@ class OrderController extends Controller
             new OrderResource($order)
         );
     }
-
-    //ToDo функция передачи инфы о том, что товар продан + доп инфа от магазина. Всё передаём мы в систему
 }

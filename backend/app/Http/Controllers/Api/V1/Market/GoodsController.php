@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Market;
 
-use App\Events\SoldGoodsEvent;
+use App\Events\MarketSoldGoodsEvent;
 use App\Http\Controllers\Controller;
 use App\Services\MarketGoodsService;
 use Illuminate\Http\JsonResponse;
@@ -17,14 +17,14 @@ class GoodsController extends Controller
      * @return JsonResponse|null
      */
     public function sold(
-        Request $request,
+        Request            $request,
         MarketGoodsService $goodsService
     ): ?JsonResponse
     {
         try {
             $data = $request->all();
             $goodsService->sold($data);
-            event(new SoldGoodsEvent($data));
+            event(new MarketSoldGoodsEvent($data));
 
             return new JsonResponse([
                 'result' => 'ok'

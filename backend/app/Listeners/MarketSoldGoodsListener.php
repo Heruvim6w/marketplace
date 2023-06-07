@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\SoldGoodsEvent;
+use App\Events\MarketSoldGoodsEvent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
-class SoldGoodsListener
+class MarketSoldGoodsListener
 {
     /**
      * Create the event listener.
@@ -20,13 +20,13 @@ class SoldGoodsListener
     /**
      * Handle the event.
      *
-     * @param SoldGoodsEvent $event
+     * @param MarketSoldGoodsEvent $event
      * @return JsonResponse
      */
-    public function handle(SoldGoodsEvent $event): JsonResponse
+    public function handle(MarketSoldGoodsEvent $event): JsonResponse
     {
         try {
-            Http::post(env('STORE_URL') . '/sold', [
+            Http::post(env('SYSTEM_URL') . '/sold', [
                 $event->data
             ]);
 

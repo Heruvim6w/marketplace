@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\System;
 
 use App\Events\AddNewGoodsEvent;
 use App\Events\RemoveGoodsEvent;
+use App\Events\SystemSoldGoodsEvent;
 use App\Events\UpdateGoodsEvent;
 use App\Http\Controllers\Controller;
 use App\Http\ParamsConverter\V1\SystemGoodsConverter;
@@ -95,5 +96,27 @@ class GoodsController extends Controller
         return new JsonResponse([
             'result' => 'ok'
         ]);
+    }
+
+    public function sold(
+        Request            $request,
+        SystemGoodsService $goodsService
+    ): ?JsonResponse
+    {
+        try {
+            $data = $request->all();
+            $goodsService->sold($data);
+            event(new SystemSoldGoodsEvent($data));
+
+            return new JsonResponse([
+                'result' => 'ok'
+            ]);
+        } catch (\Exception $exception) {
+            return new JsonResponse([
+                'result' => 'error',
+                'code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $exception->getMessage()
+            ]);
+        }
     }
 }
