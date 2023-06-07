@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property-read int $id
- * @property-read Carbon $created_at
- * @property-read Carbon $updated_at
- * @property-read string|null $last_name
- * @property-read string $name
- * @property-read string|null $second_name
- * @property-read string|null $phone
- * @property-read string|null $email
+ * @property int $id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string|null $last_name
+ * @property string $name
+ * @property string|null $second_name
+ * @property string|null $phone
+ * @property string|null $email
  */
 class Buyer extends Model
 {
