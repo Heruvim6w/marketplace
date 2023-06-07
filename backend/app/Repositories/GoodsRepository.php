@@ -24,7 +24,7 @@ class GoodsRepository extends BaseRepository
     public function index(): LengthAwarePaginator
     {
         $goods = app(Pipeline::class)
-            ->send($this->query()->with(['categories', 'properties']))
+            ->send($this->query()->with(['categories', 'properties', 'proposals']))
             ->through($this->filters())
             ->thenReturn()
             ->select('*')
@@ -41,8 +41,7 @@ class GoodsRepository extends BaseRepository
             Brand::class,
             Category::class,
             Property::class,
-            //ToDo
-//            Proposal::class,
+            Proposal::class,
         ];
     }
 }

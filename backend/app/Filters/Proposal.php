@@ -11,13 +11,14 @@ class Proposal extends Filter
     protected function applyFilters(Builder $builder): Builder
     {
         $words = array_filter(explode(' ', $this->request->get('proposal')));
-//ToDo
+
         return $builder->orWhere(function (Builder $query) use ($words) {
             foreach ($words as $word) {
-                $query->whereHas('properties', function ($query) use ($word) {
-                    $query->whereHas('proposals', function ($query) use ($word) {
-                        return $query->where('value', 'ilike', "%$word%");
-                    });
+                $query->whereHas('proposals', function ($query) use ($word) {
+                    return $query
+                        ->where('price', 'ilike', "%$word%")
+                        ->orWhere('old_price', 'ilike', "%$word%")
+                        ->orWhere('sku', 'ilike', "%$word%");
                 });
             }
         });
